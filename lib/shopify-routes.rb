@@ -67,7 +67,7 @@ module ShopifyAPI
       actions.each do |action|
 
         # create the route, and it's name
-        route = ":shop/admin/#{path.to_s}"
+        route = "*shop/admin/#{path.to_s}"
         name  = nom.to_s
 
         case action
@@ -91,11 +91,7 @@ module ShopifyAPI
         end
 
         # draw the route
-        match_admin_path(
-          route       => name,
-          :action     => action,
-          :controller => "shopify_#{nom.to_s.pluralize}"
-        )
+        match_admin_path route => path, as: name
       end
 
     end
@@ -133,9 +129,7 @@ module ShopifyAPI
         uri
       },
 
-      :as         => options[:as],
-      :action     => options[:action],
-      :controller => options[:controller]
+      :as => options[:as]
 
     end
 
@@ -159,33 +153,21 @@ module ShopifyAPI
       if include?(:brochure)
         # route to the Shopify brochure path
         brochure_path = "http://www.shopify.com#{@ref}"
-        r.match(
-          "/"           => r.redirect(brochure_path),
-          :as           => "brochure",
-          :controller   => "shopify",
-          :action       => "index"
-        )
+        r.match "/" => r.redirect(brochure_path), as: "brochure"
       end
 
       if include?(:signup)
         # route to the Shopify sign up path
         signup_path = "https://app.shopify.com/services/signup#{@ref}"
-        r.match(
-          "signup"      => r.redirect(signup_path),
-          :as           => "signup",
-          :controller   => "shopify",
-          :action       => "signup"
-        )
+        r.match "signup" => r.redirect(signup_path), as: "signup"
       end
 
       if include?(:admin)
         # route to a shop's admin path
-        r.match ":shop/admin" => r.redirect { |p,r|
-            "https://#{p[:shop]}.myshopify.com/admin"
+        r.match "*shop/admin" => r.redirect { |p,r|
+            "https://#{shop_domain[:shop]}/admin"
           },
-          :as         => "admin",
-          :controller => "shopify_admin",
-          :action     => "index"
+          as: "admin"
       end
 
       # draw the routes
