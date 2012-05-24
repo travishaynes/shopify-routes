@@ -1,4 +1,4 @@
-# Shopify::Routes
+# Shopify.routes
 
 Provides routes that redirect back to Shopify pages.
 
@@ -24,8 +24,10 @@ that you add your routes to a namespace to prevent conflicts with your
 application. Here's an example of how to add all the Shopify routes under a
 `:shopify` namespace:
 
-    namespace :shopify do
-      ShopifyAPI::Routes.draw(self)
+    MyApp::Application.routes.draw do
+      namespace :shopify do
+        ShopifyAPI::Routes.draw(self)
+      end
     end
 
 You can also specify which routes you want to include, or exclude, as you would
@@ -46,12 +48,22 @@ and `shopify_signup_path` to
 
 ## Routes
 
+For all except the brochure and signup pages, you'll have to include the shop's
+domain in the url helper. For example:
+
+    orders_url(:shop => "my-shopify-domain")
+
+Or for redirecting to a specific order:
+
+    orders_url(:shop => "my-shopify-domain", :id => 1001)
+
 Here's a list of all the routes that will be added to your app, outside of any
 namespace to keep things simple.
 
                       brochure        /
                         signup        /signup(.:format)
                          admin        /:shop/admin(.:format)
+                  applications        /:shop/admin/applications(.:format)
                         orders        /:shop/admin/orders(.:format)
                          order        /:shop/admin/orders/:id(.:format)
                      customers        /:shop/admin/customers(.:format)
