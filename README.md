@@ -55,7 +55,7 @@ domain in the url helper. For example:
 
 Or for redirecting to a specific order:
 
-    orders_url(:shop => "my-shopify-domain", :id => 1001)
+    order_url(:shop => "my-shopify-domain", :id => 1001)
 
 Here's a list of all the routes that will be added to your app, outside of any
 namespace to keep things simple.
