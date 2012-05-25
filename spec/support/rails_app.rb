@@ -1,3 +1,6 @@
+require 'rails'
+require "action_controller/railtie"
+
 # Provides a Rails application environment to use when running the specs
 
 Rails.env = 'test'

@@ -1,5 +1,3 @@
-require 'rails'
-require "action_controller/railtie"
 require 'shopify-routes'
 
 # load the support files
