@@ -1,0 +1,3 @@
+#!/bin/bash
+
+pry -r ./lib/shopify-routes -r ./spec/support/rails_app
