@@ -172,7 +172,7 @@ module ShopifyAPI
       if include?(:admin)
         # route to a shop's admin path
         r.match "*shop/admin" => r.redirect { |p,r|
-            "https://#{shop_domain[:shop]}/admin"
+            "https://#{shop_domain(p[:shop])}/admin"
           },
           as: "admin"
       end

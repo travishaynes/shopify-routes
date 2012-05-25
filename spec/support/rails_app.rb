@@ -17,5 +17,5 @@ Rails.env = 'test'
 RailsApp::Application.initialize!
 
 RailsApp::Application.routes.draw do
-  ShopifyAPI.routes(self)
+  ShopifyAPI.routes self, :referrer => 'referrer'
 end

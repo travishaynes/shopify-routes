@@ -25,6 +25,21 @@ describe "ShopifyAPI.routes" do
 
   describe "redirect routes" do
 
+    describe "brochure" do
+      subject { redirect_for "brochure" }
+      it      { should eq "http://www.shopify.com?ref=referrer" }
+    end
+
+    describe "signup" do
+      subject { redirect_for "signup" }
+      it      { should eq "https://app.shopify.com/services/signup?ref=referrer" }
+    end
+
+    describe "admin" do
+      subject { redirect_for "admin" }
+      it      { should eq "https://#{@domain}/admin" }
+    end
+
     describe "applications" do
       subject { redirect_for "applications" }
       it      { should eq path_for "applications" }
