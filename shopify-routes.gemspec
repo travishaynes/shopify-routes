@@ -12,7 +12,7 @@ Gem::Specification.new do |gem|
   gem.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
   gem.name          = "shopify-routes"
   gem.require_paths = ["lib"]
-  gem.version       = "0.0.4"
+  gem.version       = "0.0.5"
 
   gem.add_development_dependency  "rspec-rails",                     "~> 2.9.0"
   gem.add_development_dependency  "pry",                             "~>0.9.9.4"
