@@ -32,9 +32,6 @@ module ShopifyAPI
       # extract the referrer from the options, if it's included
       @ref = "?ref=#{options[:referrer]}" if options.include? :referrer
 
-      # default namespace
-      options[:namespace] ||= :shopify
-
       # extract the :only, or :except options, if they're included
       @only = Array(options[:only]) if options.include?(:only)
       @except = Array(options[:except]) if options.include?(:except)
