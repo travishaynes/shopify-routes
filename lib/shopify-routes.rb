@@ -58,8 +58,9 @@ module ShopifyAPI
     # @param [String] path The path for the route
     # @param [Array] actions List of actions to draw for this route
     # @param [String] nom Alias for the route if the path name does not suffice
+    # @param [String] suffix An optional suffix to include at the end of the redirect URI
     # @api private
-    def match(path, actions, nom = path)
+    def match(path, actions, nom = path, suffix = "")
 
       # only draw this route if it's included
       return unless include?(path)
@@ -67,8 +68,8 @@ module ShopifyAPI
       actions.each do |action|
 
         # create the route, and it's name
-        route = "*shop/admin/#{path.to_s}"
-        name  = nom.to_s
+        route   = "*shop/admin/#{path.to_s}"
+        name    = nom.to_s
 
         case action
 
@@ -81,6 +82,7 @@ module ShopifyAPI
         when :new
           route << "/new"
           name = "new_#{name.singularize}"
+          suffix = "/new"
 
         # custom routes
         else
@@ -91,7 +93,12 @@ module ShopifyAPI
         end
 
         # draw the route
-        match_admin_path route => path, as: name
+        options = {
+          route => path,
+          :as   => name
+        }
+
+        match_admin_path options, suffix
       end
 
     end
@@ -102,7 +109,7 @@ module ShopifyAPI
     # @param [String] resource The name of the resource - plural or singular
     # @param [ActionDispatch::Routing::RouteSet] The router to add the matches
     # @api private
-    def match_admin_path(options = {})
+    def match_admin_path(options = {}, suffix = "")
 
       # use the router from the options, or the cached one
       router = options[:router] || @router
@@ -126,7 +133,7 @@ module ShopifyAPI
         uri << "/#{params[:id]}" if params.include?(:id)
 
         # return the redirect URI
-        uri
+        uri + suffix
       },
 
       :as => options[:as]
@@ -182,7 +189,7 @@ module ShopifyAPI
       match :links,                       [:index],               "navigation"
       match :marketing,                   [:index],               "promotions"
       match :themes,                      [:index, :show]
-      match :themes,                      [":id/settings"],       "theme_settings"
+      match :themes,                      [":id/settings"],       "theme_settings",       "/settings"
       match :general_preferences,         [:index],               "general_settings"
       match :countries,                   [:index, :show, :new],  "regions"
       match :payments,                    [:index],               "checkout_and_payment"
