@@ -20,9 +20,49 @@ describe "ShopifyAPI.routes" do
     it { should include "new_product" }
     it { should include "orders" }
     it { should include "order" }
+
+    it { should_not include "articles" }
+    it { should_not include "article" }
+    it { should_not include "new_article" }
+    it { should_not include "blogs" }
+    it { should_not include "blog" }
+    it { should_not include "new_blog" }
+    it { should_not include "brochure" }
+    it { should_not include "signup" }
+    it { should_not include "admin" }
+    it { should_not include "applications" }
+    it { should_not include "customers" }
+    it { should_not include "customer" }
+    it { should_not include "new_customer" }
+    it { should_not include "custom_collections" }
+    it { should_not include "custom_collection" }
+    it { should_not include "new_custom_collection" }
+    it { should_not include "smart_collections" }
+    it { should_not include "smart_collection" }
+    it { should_not include "new_smart_collection" }
+    it { should_not include "pages" }
+    it { should_not include "page" }
+    it { should_not include "new_page" }
+    it { should_not include "navigation" }
+    it { should_not include "promotions" }
+    it { should_not include "themes" }
+    it { should_not include "theme" }
+    it { should_not include "theme_settings" }
+    it { should_not include "general_settings" }
+    it { should_not include "regions" }
+    it { should_not include "region" }
+    it { should_not include "new_region" }
+    it { should_not include "checkout_and_payment" }
+    it { should_not include "shipping_rates" }
+    it { should_not include "weight_based_shipping_rate" }
+    it { should_not include "price_based_shipping_rate" }
+    it { should_not include "fulfillment_services" }
+    it { should_not include "notifications" }
+    it { should_not include "notification" }
+    it { should_not include "domains" }
   end
 
-  context "with except" do
+  context "with the :except option" do
     before do
       @routes = @router.routes.collect {|r|
           r.name.gsub("with_except_", "") if r.name =~ /with_except_.*/
