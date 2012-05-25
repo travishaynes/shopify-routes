@@ -1,11 +1,8 @@
-require 'rubygems'
-require 'bundler/setup'
+require 'rails'
+require "action_controller/railtie"
 require 'shopify-routes'
 
-# load all the support files
+# load the support files
 Dir["spec/support/**/*.rb"].each { |f| require File.expand_path(f) }
-require 'rspec/rails' # this has to be loaded after the support files
 
-RSpec.configure do |config|
-  config.mock_with :rspec
-end
+require 'rspec/rails'
