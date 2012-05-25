@@ -17,5 +17,15 @@ Rails.env = 'test'
 RailsApp::Application.initialize!
 
 RailsApp::Application.routes.draw do
+
   ShopifyAPI.routes self, :referrer => 'referrer'
+
+  namespace :with_only do
+    ShopifyAPI.routes self, :only => [:products, :orders]
+  end
+
+  namespace :with_except do
+    ShopifyAPI.routes self, :except => [:articles, :blogs]
+  end
+
 end

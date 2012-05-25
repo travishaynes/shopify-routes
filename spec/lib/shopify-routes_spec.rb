@@ -6,8 +6,79 @@ describe "ShopifyAPI.routes" do
     @domain = "domain.myshopify.com"
   end
 
-  describe "redirect routes" do
+  context "with the :only option" do
+    before do
+      @routes = @router.routes.collect {|r|
+          r.name.gsub("with_only_", "") if r.name =~ /with_only_.*/
+        }.compact
+    end
 
+    subject { @routes }
+
+    it { should include "products" }
+    it { should include "product" }
+    it { should include "new_product" }
+    it { should include "orders" }
+    it { should include "order" }
+  end
+
+  context "with except" do
+    before do
+      @routes = @router.routes.collect {|r|
+          r.name.gsub("with_except_", "") if r.name =~ /with_except_.*/
+        }.compact
+    end
+
+    subject { @routes }
+
+    it { should_not include "articles" }
+    it { should_not include "article" }
+    it { should_not include "new_article" }
+    it { should_not include "blogs" }
+    it { should_not include "blog" }
+    it { should_not include "new_blog" }
+
+    it { should include "brochure" }
+    it { should include "signup" }
+    it { should include "admin" }
+    it { should include "applications" }
+    it { should include "orders" }
+    it { should include "order" }
+    it { should include "customers" }
+    it { should include "customer" }
+    it { should include "new_customer" }
+    it { should include "products" }
+    it { should include "product" }
+    it { should include "new_product" }
+    it { should include "custom_collections" }
+    it { should include "custom_collection" }
+    it { should include "new_custom_collection" }
+    it { should include "smart_collections" }
+    it { should include "smart_collection" }
+    it { should include "new_smart_collection" }
+    it { should include "pages" }
+    it { should include "page" }
+    it { should include "new_page" }
+    it { should include "navigation" }
+    it { should include "promotions" }
+    it { should include "themes" }
+    it { should include "theme" }
+    it { should include "theme_settings" }
+    it { should include "general_settings" }
+    it { should include "regions" }
+    it { should include "region" }
+    it { should include "new_region" }
+    it { should include "checkout_and_payment" }
+    it { should include "shipping_rates" }
+    it { should include "weight_based_shipping_rate" }
+    it { should include "price_based_shipping_rate" }
+    it { should include "fulfillment_services" }
+    it { should include "notifications" }
+    it { should include "notification" }
+    it { should include "domains" }
+  end
+
+  context "all routes" do
     describe "brochure" do
       subject { redirect_for :brochure }
       it      { should eq "http://www.shopify.com?ref=referrer" }
