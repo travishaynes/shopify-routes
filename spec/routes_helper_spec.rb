@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe "route helper methods" do
-  before do
+  before(:all) do
     @router = RailsApp::Application.routes
     @domain = "domain.myshopify.com"
   end

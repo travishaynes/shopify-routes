@@ -1,13 +1,13 @@
 require 'spec_helper'
 
 describe "ShopifyAPI.routes" do
-  before do
+  before(:all) do
     @router = RailsApp::Application.routes
     @domain = "domain.myshopify.com"
   end
 
   context "with the :only option" do
-    before do
+    before(:all) do
       @routes = @router.routes.collect {|r|
           r.name.gsub("with_only_", "") if r.name =~ /with_only_.*/
         }.compact
@@ -63,7 +63,7 @@ describe "ShopifyAPI.routes" do
   end
 
   context "with the :except option" do
-    before do
+    before(:all) do
       @routes = @router.routes.collect {|r|
           r.name.gsub("with_except_", "") if r.name =~ /with_except_.*/
         }.compact
